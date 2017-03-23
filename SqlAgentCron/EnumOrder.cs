@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace SqlAgentCron.Implementation
+namespace SqlAgentCron
 {
     public class EnumOrder<TEnum> where TEnum : struct
     {

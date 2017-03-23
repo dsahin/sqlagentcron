@@ -1,9 +1,9 @@
 using System;
 using Microsoft.SqlServer.Management.Smo.Agent;
 
-namespace SqlAgentCron.Implementation
+namespace SqlAgentCron
 {
-    public class SqlAgentJobSchedule : ISqlAgentJobSchedule
+    public class SqlAgentJobSchedule
     {
         public DateTime ActiveEndDate { get; set; }
         public TimeSpan ActiveEndTimeOfDay { get; set; }

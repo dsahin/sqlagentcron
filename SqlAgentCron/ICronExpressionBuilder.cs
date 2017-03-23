@@ -2,6 +2,6 @@
 {
     public interface ICronExpressionBuilder
     {
-        string GetExpression(ISqlAgentJobSchedule sqlAgentJobSchedule);
+        string GetExpression(SqlAgentJobSchedule sqlAgentJobSchedule);
     }
 }

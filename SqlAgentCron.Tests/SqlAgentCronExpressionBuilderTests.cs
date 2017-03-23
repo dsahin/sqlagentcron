@@ -2,7 +2,7 @@
 using Microsoft.SqlServer.Management.Smo.Agent;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SqlAgentCron.Implementation.Tests
+namespace SqlAgentCron.Tests
 {
     [TestClass]
     public class SqlAgentCronExpressionBuilderTests
@@ -13,40 +13,41 @@ namespace SqlAgentCron.Implementation.Tests
         public void TestInitialize()
         {
             _builder = new SqlAgentCronExpressionBuilder();
-            
         }
 
         [TestMethod]
-        public void Every_12_AM_Schedule_Should_Returns()
+        public void Every_Day_1_30_AM_Schedule_Should_Returns()
         {
             var sqlAgentJobSchedule = new SqlAgentJobSchedule
             {
                 FrequencySubDayTypes = FrequencySubDayTypes.Once,
                 FrequencyTypes = FrequencyTypes.Daily,
+                ActiveStartTimeOfDay = new TimeSpan(1, 30, 0)
             };
 
             var expression = _builder.GetExpression(sqlAgentJobSchedule);
 
-            Assert.AreEqual("0 0 * * *", expression);
+            Assert.AreEqual("30 1 * * *", expression);
         }
 
         [TestMethod]
-        public void Every_Five_Days_At_12_AM_Returns()
+        public void Every_Five_Days_At_1_30_AM_Returns()
         {
             var sqlAgentJobSchedule = new SqlAgentJobSchedule
             {
                 FrequencyInterval = 5,
                 FrequencySubDayTypes = FrequencySubDayTypes.Once,
                 FrequencyTypes = FrequencyTypes.Daily,
+                ActiveStartTimeOfDay = new TimeSpan(1, 30, 0)
             };
 
             var expression = _builder.GetExpression(sqlAgentJobSchedule);
 
-            Assert.AreEqual("0 0 */5 * *", expression);
+            Assert.AreEqual("30 1 */5 * *", expression);
         }
 
         [TestMethod]
-        public void Every_12_PM_Schedule_Should_Returns()
+        public void Every_Day_12_PM_Schedule_Should_Returns()
         {
             var sqlAgentJobSchedule = new SqlAgentJobSchedule
             {
@@ -61,22 +62,23 @@ namespace SqlAgentCron.Implementation.Tests
         }
 
         [TestMethod]
-        public void Every_Ten_Seconds_Schedule_Should_Returns()
+        public void Every_Day_Every_Minute_Schedule_Should_Returns()
         {
             var sqlAgentJobSchedule = new SqlAgentJobSchedule
             {
-                FrequencySubDayInterval = 10,
-                FrequencySubDayTypes = FrequencySubDayTypes.Second,
-                FrequencyTypes = FrequencyTypes.Daily
+                FrequencySubDayInterval = 1,
+                FrequencySubDayTypes = FrequencySubDayTypes.Minute,
+                FrequencyTypes = FrequencyTypes.Daily,
+                FrequencyInterval = 1
             };
 
             var expression = _builder.GetExpression(sqlAgentJobSchedule);
 
-            Assert.AreEqual("*/10 * * * * *", expression);
+            Assert.AreEqual("* * * * *", expression);
         }
 
         [TestMethod]
-        public void Every_Ten_Minute_Schedule_Should_Returns()
+        public void Every_Day_Every_Ten_Minute_Schedule_Should_Returns()
         {
             var sqlAgentJobSchedule = new SqlAgentJobSchedule
             {
@@ -88,6 +90,19 @@ namespace SqlAgentCron.Implementation.Tests
             var expression = _builder.GetExpression(sqlAgentJobSchedule);
 
             Assert.AreEqual("*/10 * * * *", expression);
+        }
+
+        [TestMethod]
+        public void Every_Day_Every_60_Minute_Schedule_Should_Throw_Exception()
+        {
+            var sqlAgentJobSchedule = new SqlAgentJobSchedule
+            {
+                FrequencySubDayInterval = 60,
+                FrequencySubDayTypes = FrequencySubDayTypes.Minute,
+                FrequencyTypes = FrequencyTypes.Daily
+            };
+
+            _builder.GetExpression(sqlAgentJobSchedule);
         }
 
         [TestMethod]
@@ -103,6 +118,23 @@ namespace SqlAgentCron.Implementation.Tests
             var expression = _builder.GetExpression(sqlAgentJobSchedule);
 
             Assert.AreEqual("0 */10 * * *", expression);
+        }
+
+        [TestMethod]
+        public void Every_Sunday_At_1_30_AM_Returns()
+        {
+            var sqlAgentJobSchedule = new SqlAgentJobSchedule
+            {
+                FrequencyInterval = 1,
+                FrequencyRecurrenceFactor = 1,
+                FrequencySubDayTypes = FrequencySubDayTypes.Once,
+                FrequencyTypes = FrequencyTypes.Weekly,
+                ActiveStartTimeOfDay = new TimeSpan(1, 30, 0)
+            };
+
+            var expression = _builder.GetExpression(sqlAgentJobSchedule);
+
+            Assert.AreEqual("30 1 * * 0", expression);
         }
 
         [TestMethod]

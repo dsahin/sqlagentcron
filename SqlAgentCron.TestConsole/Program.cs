@@ -8,8 +8,8 @@ namespace SqlAgentCron.TestConsole
     {
         static void Main(string[] args)
         {
-            Server server = new Server("DESKTOP-2MK15TL");
-            Job job = server.JobServer.GetJobByID(Guid.Parse("079A5512-8482-43B3-8F6E-2C8C79C990EA"));
+            Server server = new Server(".");
+            Job job = server.JobServer.GetJobByID(Guid.Parse("37CC970D-2F27-417B-A165-8E23D42A6A17"));
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SqlAgentCron.Implementation.Tests")]
+[assembly: AssemblyTitle("SqlAgentCron.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SqlAgentCron.Implementation.Tests")]
+[assembly: AssemblyProduct("SqlAgentCron.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e65f2df6-dd22-4a7f-b4fc-e4882b247801")]
+[assembly: Guid("3fffdb9f-02de-4665-93c4-6b277d53bc14")]
 
 // Version information for an assembly consists of the following four values:
 //
